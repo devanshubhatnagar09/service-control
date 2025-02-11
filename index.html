@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Control</title>
+    <script src="index.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #80bdff;
+            outline: none;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .switch {
+            display: flex;
+            align-items: center;
+        }
+        .switch input {
+            display: none;
+        }
+        .slider {
+            width: 34px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 34px;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+        #addService {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+        #service-container {
+            height: 400px;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>SearchUnify Service Control</h2>
+        <form id="serviceControlForm" method="POST" action="/">
+            <label for="serviceName">Service Name:</label>
+            <label>
+                <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Select All
+            </label>
+            <script>
+                function toggleSelectAll(selectAllCheckbox) {
+                    const checkboxes = document.querySelectorAll('input[name="serviceName"]');
+                    checkboxes.forEach((checkbox) => {
+                        checkbox.checked = selectAllCheckbox.checked;
+                    });
+                }
+            </script>
+            <div class="input-group" id="service-container">
+                <div id="addService">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="branchName">Branch Name:</label>
+                <input type="text" id="branchName" name="branchName" placeholder="Enter branch name">
+            </div>
+            <div class="input-group">
+                <label for="toggle">Restart Container:</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" name="toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button type="submit" id="startButton">Start</button>
+        </form>
+    </div>
+</body>
+<script src="config.js"></script>
+</html>
