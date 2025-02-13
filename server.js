@@ -44,16 +44,19 @@ app.post('/', (req, res) => {
         "index-service": "micro-services/index-service"
     };
     const folder = [];
-    const serviceName = req.body.serviceName || [];
+    let serviceName = req.body.serviceName || [];
     const branchName = req.body.branchName || '';
     const toggle = req.body.toggle ? 'enabled' : 'disabled';
+    if(!Array.isArray(serviceName)) {
+        serviceName = [serviceName];
+    }
     serviceName.forEach((serviceNameItem,index) => {
         if (SERVICE_FOFLDER_NAME[serviceNameItem]) {
             folder.push(SERVICE_FOFLDER_NAME[serviceNameItem]);
         }
         console.log(`Service Name: ${serviceNameItem}, Branch Name: ${branchName}, Restart Container: ${toggle} , Folder name ${SERVICE_FOFLDER_NAME[serviceNameItem]}`);
         const { spawn } = require('child_process');
-        const child = spawn('bash', ['down.sh', branchName, toggle, serviceNameItem]);
+        const child = spawn('bash', ['down.sh', branchName, toggle, serviceNameItem,SERVICE_FOFLDER_NAME[serviceNameItem] ]);
 
         child.stdout.on('data', (data) => {
             console.log(`${serviceNameItem} outputs: ${data}`);

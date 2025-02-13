@@ -14,11 +14,23 @@ echo "git checkout $BRANCH_NAME branch done....."
 git pull origin $BRANCH_NAME
 echo "git pull origin $BRANCH_NAME done ....."
 
-if [ "$2" = "enabled" ]; then
-    docker-compose -f docker-compose-mac-$SERVICE_NAME.yml down
+if [ "$2" = "enabled" ] && { [ "$3" = "backend" ] || [ "$3" = "frontend" ]; }; then
+    # Commands for the "enabled" condition
+    docker-compose -f docker-compose-mac-"$SERVICE_NAME".yml down
     echo "$SERVICE_NAME service down ....."
-    docker-compose -f docker-compose-mac-$SERVICE_NAME.yml --compatibility up --build -d
+    docker-compose -f docker-compose-mac-"$SERVICE_NAME".yml --compatibility up --build -d
     echo "$SERVICE_NAME service up ....."
     docker restart "$SERVICE_NAME"
     exit 0
+else
+    # Commands for the "enabled" condition in the "else" block
+    if [ "$2" = "enabled" ]; then
+        docker-compose -f docker-compose-mac.yml down
+        echo "$SERVICE_NAME service down ....."
+        docker-compose -f docker-compose-mac.yml --compatibility up --build -d
+        echo "$SERVICE_NAME service up ....."
+        docker restart "$SERVICE_NAME"
+        exit 0
+    fi
 fi
+

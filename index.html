@@ -12,13 +12,20 @@
             padding: 0;
             background-color: #e9ecef;
         }
-        .container {
+        .container-left {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            margin: auto;
+            width: 36vw;
+        }
+        .container-right {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 50vw;
+            height: 80vh;
         }
         h2 {
             text-align: center;
@@ -99,41 +106,59 @@
             height: 400px;
             overflow: scroll;
         }
+        .main-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        .logs {
+            height: 400px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>SearchUnify Service Control</h2>
-        <form id="serviceControlForm" method="POST" action="/">
-            <label for="serviceName">Service Name:</label>
-            <label>
-                <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Select All
-            </label>
-            <script>
-                function toggleSelectAll(selectAllCheckbox) {
-                    const checkboxes = document.querySelectorAll('input[name="serviceName"]');
-                    checkboxes.forEach((checkbox) => {
-                        checkbox.checked = selectAllCheckbox.checked;
-                    });
-                }
-            </script>
-            <div class="input-group" id="service-container">
-                <div id="addService">
-                </div>
-            </div>
-            <div class="input-group">
-                <label for="branchName">Branch Name:</label>
-                <input type="text" id="branchName" name="branchName" placeholder="Enter branch name">
-            </div>
-            <div class="input-group">
-                <label for="toggle">Restart Container:</label>
-                <label class="switch">
-                    <input type="checkbox" id="toggle" name="toggle">
-                    <span class="slider"></span>
+    <div class="main-container">
+        <div class="container-left">
+            <h2>SearchUnify Service Control</h2>
+            <form id="serviceControlForm" method="POST" action="/">
+                <label for="serviceName">Service Name:</label>
+                <label>
+                    <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Select All
                 </label>
+                <script>
+                    function toggleSelectAll(selectAllCheckbox) {
+                        const checkboxes = document.querySelectorAll('input[name="serviceName"]');
+                        checkboxes.forEach((checkbox) => {
+                            checkbox.checked = selectAllCheckbox.checked;
+                        });
+                    }
+                </script>
+                <div class="input-group" id="service-container">
+                    <div id="addService">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="branchName">Branch Name:</label>
+                    <input type="text" id="branchName" name="branchName" placeholder="Enter branch name">
+                </div>
+                <div class="input-group">
+                    <label for="toggle">Restart Container:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle" name="toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button type="submit" id="startButton">Start</button>
+            </form>
+        </div>
+        <div class="container-right">
+            <h2>Terminal Logs</h2>
+            <div class="logs">
+
             </div>
-            <button type="submit" id="startButton">Start</button>
-        </form>
+        </div>
     </div>
 </body>
 <script src="config.js"></script>
