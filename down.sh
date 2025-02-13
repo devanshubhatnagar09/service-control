@@ -1,6 +1,6 @@
-cd ../../docker-dev-setup/micro-services/admin
-/Users/devanshu.bhatnagar/docker-dev-setup/micro-services/admin
-echo "Entered in Admin $SERVICE_NAME ....."
+FOLDER_NAME="$4"
+cd ../../docker-dev-setup/$FOLDER_NAME
+echo "Entered in $FOLDER_NAME $SERVICE_NAME ....."
 git fetch
 echo "git fetch done ....."
 BRANCH_NAME="$1"
@@ -20,5 +20,5 @@ if [ "$2" = "enabled" ]; then
     docker-compose -f docker-compose-mac-$SERVICE_NAME.yml --compatibility up --build -d
     echo "$SERVICE_NAME service up ....."
     docker restart "$SERVICE_NAME"
-    exit 1
+    exit 0
 fi
