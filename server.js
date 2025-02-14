@@ -78,6 +78,7 @@ app.post('/' ,(req, res) => {
                 console.error(`Error executing command, exit code: ${code}`);
                 return res.status(500).send('Error executing command');
             }
+            io.emit('message', `Command executed successfully`);
             console.log('Command executed successfully');
 
         });

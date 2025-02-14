@@ -57,6 +57,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
   const socket = io();
   socket.on('message', (message) => {
+    if (message === 'Command executed successfully') {
+      let toggle = true;
+      setInterval(() => {
+      document.title = toggle ? 'Build Completed' : 'Service Control';
+      toggle = !toggle;
+      }, 1000);
+    }
+      toggle = false;
       currentLogs = localStorage.getItem('message') || '';
       currentLogs += `${message} \n`;
       localStorage.setItem('message', currentLogs);
