@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Control</title>
-    <script src="index.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -114,7 +114,11 @@
             width: 100vw;
         }
         .logs {
-            height: 400px;
+            height: 70%;
+            border: 1px black solid;
+            border-radius: 7px;
+            overflow: scroll;
+            padding: 20px;
         }
     </style>
 </head>
@@ -127,14 +131,6 @@
                 <label>
                     <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Select All
                 </label>
-                <script>
-                    function toggleSelectAll(selectAllCheckbox) {
-                        const checkboxes = document.querySelectorAll('input[name="serviceName"]');
-                        checkboxes.forEach((checkbox) => {
-                            checkbox.checked = selectAllCheckbox.checked;
-                        });
-                    }
-                </script>
                 <div class="input-group" id="service-container">
                     <div id="addService">
                     </div>
@@ -155,8 +151,7 @@
         </div>
         <div class="container-right">
             <h2>Terminal Logs</h2>
-            <div class="logs">
-
+            <div class="logs" id="message">
             </div>
         </div>
     </div>

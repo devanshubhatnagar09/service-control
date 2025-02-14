@@ -1,7 +1,11 @@
 const express = require('express');
 const exec = require('child_process').exec;
 const app = express();
-const PORT = 6996;
+const PORT = 9669;
+const http = require('http');
+const socketIo = require('socket.io');
+const server = http.createServer(app);
+const io = socketIo(server);
 
 
 app.get('/', (req, res) => {
@@ -13,7 +17,7 @@ app.get('/config.js', (req, res) => {
 });
 
 app.use(express.urlencoded({ extended: true }))
-app.post('/', (req, res) => {
+app.post('/' ,(req, res) => {
     const SERVICE_FOFLDER_NAME = {
         "ep-addon": "escalation-addon/escalation-addon",
         "su-crawler": "micro-services/su-crawler",
@@ -59,24 +63,35 @@ app.post('/', (req, res) => {
         const child = spawn('bash', ['down.sh', branchName, toggle, serviceNameItem,SERVICE_FOFLDER_NAME[serviceNameItem] ]);
 
         child.stdout.on('data', (data) => {
+            io.emit('message', `${serviceNameItem} outputs: ${data}`);
             console.log(`${serviceNameItem} outputs: ${data}`);
         });
 
         child.stderr.on('data', (data) => {
-            console.error(`${serviceNameItem} outputs: ${data}`);
+            io.emit('message', `${serviceNameItem} outputs: ${data}`);
+            console.log(`${serviceNameItem} outputs: ${data}`);
         });
 
         child.on('close', (code) => {
             if (code !== 0) {
+                io.emit('message', `Error executing command, exit code: ${code}`);
                 console.error(`Error executing command, exit code: ${code}`);
                 return res.status(500).send('Error executing command');
             }
             console.log('Command executed successfully');
-            res.status(200).sendFile(__dirname + '/index.html');
+
         });
+    });
+    res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+    console.log('A client connected');
+    socket.on('disconnect', () => {
+        console.log('A client disconnected');
     });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
