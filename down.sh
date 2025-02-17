@@ -1,6 +1,10 @@
 FOLDER_NAME="$4"
 cd ../../docker-dev-setup/$FOLDER_NAME
 echo "Entered in $FOLDER_NAME $SERVICE_NAME ....."
+git stash
+echo "git stash done ....."
+echo "Your changes have been stashed as you are checking out to a new branch."
+echo "To restore your changes later, use 'git stash pop' when you checkout back to the same branch."
 git fetch
 echo "git fetch done ....."
 BRANCH_NAME="$1"
