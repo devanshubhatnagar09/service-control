@@ -76,3 +76,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
       messageContainer.appendChild(logDiv);
   });
 });
+
+function clearLogs() {
+  document.getElementById('message').innerHTML = '';
+  localStorage.setItem('message', '');
+}
+function toastify (textToShow) {
+  const toast = document.createElement('div');
+  toast.textContent = textToShow;
+  toast.style.position = 'fixed';
+  toast.style.bottom = '20px';
+  toast.style.right = '20px';
+  toast.style.background = 'linear-gradient(to right, #00b09b, #96c93d)';
+  toast.style.color = 'white';
+  toast.style.padding = '10px 20px';
+  toast.style.borderRadius = '5px';
+  toast.style.zIndex = '1000';
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+      document.body.removeChild(toast);
+  }, 3000);
+}
+function downloadLogs() {
+  const logs = localStorage.getItem('message');
+  if(logs) {
+  const blob = new Blob([logs], { type: 'text/plain' });
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = 'logs.txt';
+  link.click();
+  } else {
+  document.getElementById('downloadLogsButton').disabled = true;
+  document.getElementById('downloadLogsButton').style.cursor = 'not-allowed';
+  }
+}

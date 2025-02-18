@@ -1,4 +1,3 @@
-# Start Generation Here
 ## Path Location of Service Controller
 
 To set up the Service Controller, follow these steps:
@@ -25,8 +24,7 @@ To set up the Service Controller, follow these steps:
    git pull origin new-service-upservice
    ```
 
-6. Start the services using Docker Compose:
+6. Start the services using node server.js:
    ```bash
-   docker-compose -f docker-compose-mac.yml --compatibility up --build -d
+   node server.js
    ```
-# End Generation Here
