@@ -1,11 +1,20 @@
 const SERVICE_NAME = [
+  "analytics",
+  "frontend",
+  "backend",
+  "ah-analytics",
+  "multi-tenant-auth",
+  "index-service",
+  "migrations",
+  "cron-manager",
+  "ah-client-frontend",
+  "ah-client-backend",
   "ep-addon",
   "su-crawler",
   "kafka",
   "zookeeper",
   "ep_template",
   "mongo-ep",
-  "ah-analytics",
   "citus-worker",
   "citus-manager",
   "citus-master",
@@ -16,16 +25,7 @@ const SERVICE_NAME = [
   "mongo-search",
   "redis",
   "mysql",
-  "opensearch",
-  "analytics",
-  "frontend",
-  "backend",
-  "ah-client-backend",
-  "ah-client-frontend",
-  "migrations",
-  "cron-manager",
-  "multi-tenant-auth",
-  "index-service"
+  "opensearch"
 ]
 
 const serviceNameContainer = document.getElementById('addService');
