@@ -1,0 +1,35 @@
+# service-controller docker service
+version: "3"
+services:
+  service-controller:
+    container_name: service-controller
+    build:
+      context: .
+      dockerfile: mac.Dockerfile
+      args:
+        - BASE_IMAGE=${MUL_ARCH_BASE_IMAGE}
+    image: service-controller:latest
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/home/service-controller
+      - /home/service-controller/node_modules
+
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY}
+    networks:
+      - shared_network
+    restart: always
+    command: >
+      sh -c "${NODE_RUN_ENV}"
+   
+volumes:
+  analytics_reports:
+  analytics_crontab:
+
+networks:
+  shared_network:
+    external:
+      name: shared_network

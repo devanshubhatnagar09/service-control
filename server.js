@@ -16,6 +16,11 @@ app.get('/config.js', (req, res) => {
     res.sendFile(__dirname + '/config.js');
 });
 
+app.get('/servicelogo.jpg', (req, res) => {
+    res.sendFile(__dirname + '/servicelogo.jpg');
+});
+
+
 app.use(express.urlencoded({ extended: true }))
 app.post('/' ,(req, res) => {
     const SERVICE_FOFLDER_NAME = {
